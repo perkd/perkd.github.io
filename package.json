@@ -16,5 +16,8 @@
     "vscode-languageserver-types": "3.17.5",
     "vue": "^3.4.15"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "vitepress-openapi": "^0.1.10"
+  }
 }

@@ -1,5 +1,28 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
+import { useSidebar } from 'vitepress-openapi'
+import vendingSpec from '../specs/vending-api.json'
+import kioskSpec from '../specs/kiosk-api.json'
+import callbacksSpec from '../specs/callbacks-api.json'
+import paymentSpec from '../specs/payment-api.json'
+
+// Generate sidebar items for each API with hash-anchor links
+const vendingSidebar = useSidebar({
+  spec: vendingSpec,
+  linkPrefix: '/api-reference/vending#'
+})
+const kioskSidebar = useSidebar({
+  spec: kioskSpec,
+  linkPrefix: '/api-reference/kiosk#'
+})
+const callbacksSidebar = useSidebar({
+  spec: callbacksSpec,
+  linkPrefix: '/api-reference/callbacks#'
+})
+const paymentSidebar = useSidebar({
+  spec: paymentSpec,
+  linkPrefix: '/api-reference/payment#'
+})
 
 export default withMermaid(defineConfig({
   title: 'Perkd Partner Docs',
@@ -13,6 +36,7 @@ export default withMermaid(defineConfig({
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Machine APIs', link: '/machines/' },
+      { text: 'API Reference', link: '/api-reference/' },
       { text: 'Schemas', link: '/schemas/' },
       { text: 'Guides', link: '/guides/' }
     ],
@@ -102,6 +126,47 @@ export default withMermaid(defineConfig({
             { text: 'Webhooks Best Practices', link: '/guides/webhooks' },
             { text: 'Testing', link: '/guides/testing' }
           ]
+        }
+      ],
+
+      '/api-reference/': [
+        {
+          text: 'API Reference',
+          items: [
+            { text: 'Overview', link: '/api-reference/' }
+          ]
+        },
+        {
+          text: 'Vending API',
+          link: '/api-reference/vending',
+          collapsed: false,
+          items: vendingSidebar.generateSidebarGroup({
+            tag: 'Vending'
+          }).items || []
+        },
+        {
+          text: 'Kiosk API',
+          link: '/api-reference/kiosk',
+          collapsed: false,
+          items: kioskSidebar.generateSidebarGroup({
+            tag: 'Kiosk'
+          }).items || []
+        },
+        {
+          text: 'Callbacks API',
+          link: '/api-reference/callbacks',
+          collapsed: false,
+          items: callbacksSidebar.generateSidebarGroup({
+            tag: 'Callbacks'
+          }).items || []
+        },
+        {
+          text: 'Payment API',
+          link: '/api-reference/payment',
+          collapsed: false,
+          items: paymentSidebar.generateSidebarGroup({
+            tag: 'Payment'
+          }).items || []
         }
       ]
     },

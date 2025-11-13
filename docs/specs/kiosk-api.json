@@ -1,0 +1,136 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Perkd Kiosk API",
+    "version": "1.0.0",
+    "description": "API endpoints for kiosk machine operations."
+  },
+  "servers": [
+    {
+      "url": "https://api.perkd.com/v1",
+      "description": "Production server"
+    },
+    {
+      "url": "https://api-staging.perkd.com/v1",
+      "description": "Staging server"
+    }
+  ],
+  "paths": {
+    "/kiosk/order": {
+      "post": {
+        "operationId": "kioskOrder",
+        "summary": "Create Kiosk Order",
+        "description": "Creates an order at a kiosk terminal for food or beverages.",
+        "tags": ["Kiosk"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["kioskId", "items"],
+                "properties": {
+                  "kioskId": {
+                    "type": "string",
+                    "description": "Unique identifier of the kiosk",
+                    "example": "KIOSK-001"
+                  },
+                  "personId": {
+                    "type": "string",
+                    "description": "Optional person identifier for personalized orders"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["itemId", "quantity"],
+                      "properties": {
+                        "itemId": {
+                          "type": "string",
+                          "description": "Item identifier"
+                        },
+                        "quantity": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "options": {
+                          "type": "array",
+                          "description": "Customization options (size, toppings, etc.)",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "optionId": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "orderId": {
+                      "type": "string",
+                      "description": "Unique order identifier"
+                    },
+                    "orderNumber": {
+                      "type": "string",
+                      "description": "Human-readable order number"
+                    },
+                    "totalAmount": {
+                      "type": "number",
+                      "description": "Total order amount in dollars"
+                    },
+                    "estimatedWaitTime": {
+                      "type": "integer",
+                      "description": "Estimated preparation time in minutes"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["pending", "confirmed", "preparing", "ready", "completed"]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid order data"
+          },
+          "404": {
+            "description": "Kiosk not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

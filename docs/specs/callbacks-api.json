@@ -1,0 +1,235 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Perkd Callbacks API",
+    "version": "1.0.0",
+    "description": "Webhook callbacks that Perkd sends to partner systems during machine operations."
+  },
+  "servers": [
+    {
+      "url": "https://partner-api.example.com",
+      "description": "Partner callback server (example)"
+    }
+  ],
+  "paths": {
+    "/callbacks/checkin": {
+      "post": {
+        "operationId": "checkinCallback",
+        "summary": "Check-In Callback",
+        "description": "Called when a user checks in at a machine. Partner should validate user and return available items.",
+        "tags": ["Callbacks"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eventType": {
+                    "type": "string",
+                    "enum": ["checkin"]
+                  },
+                  "machineId": {
+                    "type": "string"
+                  },
+                  "personId": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Check-in validated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "authorized": {
+                      "type": "boolean"
+                    },
+                    "person": {
+                      "type": "object",
+                      "properties": {
+                        "personId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "membership": {
+                          "type": "object",
+                          "properties": {
+                            "level": {
+                              "type": "string"
+                            },
+                            "benefits": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/callbacks/order": {
+      "post": {
+        "operationId": "orderCallback",
+        "summary": "Order Callback",
+        "description": "Called when an order is created. Partner should validate and confirm the order.",
+        "tags": ["Callbacks"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eventType": {
+                    "type": "string",
+                    "enum": ["order"]
+                  },
+                  "orderId": {
+                    "type": "string"
+                  },
+                  "personId": {
+                    "type": "string"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "itemId": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        },
+                        "price": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "totalAmount": {
+                    "type": "number"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order validated and confirmed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "confirmed": {
+                      "type": "boolean"
+                    },
+                    "partnerOrderId": {
+                      "type": "string",
+                      "description": "Partner's internal order reference"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/callbacks/authorize": {
+      "post": {
+        "operationId": "authorizeCallback",
+        "summary": "Payment Authorization Callback",
+        "description": "Called to authorize payment before order fulfillment.",
+        "tags": ["Callbacks"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eventType": {
+                    "type": "string",
+                    "enum": ["authorize"]
+                  },
+                  "orderId": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number"
+                  },
+                  "paymentMethod": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "authorized": {
+                      "type": "boolean"
+                    },
+                    "authorizationId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "webhookSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Perkd-Signature",
+        "description": "HMAC signature for webhook verification"
+      }
+    }
+  },
+  "security": [
+    {
+      "webhookSignature": []
+    }
+  ]
+}

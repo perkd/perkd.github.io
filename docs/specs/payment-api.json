@@ -1,0 +1,262 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Perkd Payment API",
+    "version": "1.0.0",
+    "description": "API endpoints for payment processing, including commit and cancel operations."
+  },
+  "servers": [
+    {
+      "url": "https://api.perkd.com/v1",
+      "description": "Production server"
+    },
+    {
+      "url": "https://api-staging.perkd.com/v1",
+      "description": "Staging server"
+    }
+  ],
+  "paths": {
+    "/payment/commit": {
+      "post": {
+        "operationId": "paymentCommit",
+        "summary": "Commit Payment",
+        "description": "Finalizes a previously authorized payment and completes the transaction.",
+        "tags": ["Payment"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["authorizationId", "orderId"],
+                "properties": {
+                  "authorizationId": {
+                    "type": "string",
+                    "description": "Authorization ID from the authorize step",
+                    "example": "AUTH-12345"
+                  },
+                  "orderId": {
+                    "type": "string",
+                    "description": "Order identifier",
+                    "example": "ORD-67890"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Final amount to charge (may differ from authorized amount)",
+                    "example": 15.99
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment committed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "transactionId": {
+                      "type": "string",
+                      "description": "Unique transaction identifier"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["completed", "pending"]
+                    },
+                    "amount": {
+                      "type": "number",
+                      "description": "Amount charged"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request - authorization may be expired or invalid"
+          },
+          "402": {
+            "description": "Payment failed - insufficient funds or payment method declined"
+          },
+          "404": {
+            "description": "Authorization or order not found"
+          }
+        }
+      }
+    },
+    "/payment/cancel": {
+      "post": {
+        "operationId": "paymentCancel",
+        "summary": "Cancel Payment",
+        "description": "Cancels a payment authorization or refunds a completed transaction.",
+        "tags": ["Payment"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["orderId"],
+                "properties": {
+                  "orderId": {
+                    "type": "string",
+                    "description": "Order identifier"
+                  },
+                  "authorizationId": {
+                    "type": "string",
+                    "description": "Authorization ID to cancel (for authorized but not committed payments)"
+                  },
+                  "transactionId": {
+                    "type": "string",
+                    "description": "Transaction ID to refund (for completed payments)"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Reason for cancellation",
+                    "enum": ["customer_request", "out_of_stock", "machine_error", "other"]
+                  },
+                  "refundAmount": {
+                    "type": "number",
+                    "description": "Amount to refund (defaults to full amount if not specified)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment cancelled or refunded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": ["cancelled", "refunded", "pending_refund"]
+                    },
+                    "refundId": {
+                      "type": "string",
+                      "description": "Refund transaction identifier"
+                    },
+                    "refundAmount": {
+                      "type": "number",
+                      "description": "Amount refunded"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request - missing required fields or invalid state"
+          },
+          "404": {
+            "description": "Order, authorization, or transaction not found"
+          },
+          "409": {
+            "description": "Conflict - payment cannot be cancelled in current state"
+          }
+        }
+      }
+    },
+    "/payment/status": {
+      "get": {
+        "operationId": "paymentStatus",
+        "summary": "Get Payment Status",
+        "description": "Retrieves the current status of a payment transaction.",
+        "tags": ["Payment"],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Order identifier"
+          },
+          {
+            "name": "transactionId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Transaction identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "orderId": {
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["authorized", "completed", "cancelled", "refunded", "failed"]
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "paymentMethod": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing required query parameters"
+          },
+          "404": {
+            "description": "Payment not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
