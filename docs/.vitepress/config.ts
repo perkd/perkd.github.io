@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'Perkd Partner Docs',
   description: 'API Documentation for Perkd Partner Integrations',
   base: '/',
@@ -117,5 +118,20 @@ export default defineConfig({
     search: {
       provider: 'local'
     }
+  },
+
+  // Mermaid configuration
+  mermaid: {
+    // Optional: configure mermaid theme
+  },
+  mermaidPlugin: {
+    class: 'mermaid'
+  },
+
+  // Vite configuration to handle mermaid dependencies
+  vite: {
+    optimizeDeps: {
+      include: ['mermaid']
+    }
   }
-})
+}))
