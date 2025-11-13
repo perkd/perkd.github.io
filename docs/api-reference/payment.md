@@ -11,7 +11,7 @@ import spec from '../specs/payment-api.json'
 
 This page provides complete API documentation for Perkd's payment processing endpoints.
 
-<OASpec :spec="spec" />
+<CustomOASpec :spec="spec" />
 
 ## Payment Flow
 

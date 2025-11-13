@@ -11,7 +11,7 @@ import spec from '../specs/vending-api.json'
 
 This page provides complete API documentation for Perkd's vending machine integration endpoints.
 
-<OASpec :spec="spec" />
+<CustomOASpec :spec="spec" />
 
 ## Additional Resources
 

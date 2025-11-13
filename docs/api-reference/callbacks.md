@@ -15,7 +15,7 @@ This page provides complete documentation for webhook callbacks that Perkd sends
 These are endpoints that **you** (the partner) must implement on your server. Perkd will send HTTP POST requests to these URLs during machine operations.
 :::
 
-<OASpec :spec="spec" />
+<CustomOASpec :spec="spec" />
 
 ## Implementation Guide
 

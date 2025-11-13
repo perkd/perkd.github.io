@@ -11,7 +11,7 @@ import spec from '../specs/kiosk-api.json'
 
 This page provides complete API documentation for Perkd's kiosk machine integration endpoints.
 
-<OASpec :spec="spec" />
+<CustomOASpec :spec="spec" />
 
 ## Additional Resources
 
