@@ -1,0 +1,2997 @@
+{
+	"info": {
+		"_postman_id": "a8d0a237-f2ed-43ef-835e-9bc751be3d82",
+		"name": "Partners API",
+		"description": "## Pre-Requisites\n\n**Receive** these from Perkd:\n\n1. Merchant specific **`x-api-key`** to authenticate API Calls\n    \n2. Merchant specific **Digital Card** on Perkd app to test with\n    \n\n**Provide** these to Perkd:\n\n1. Universal **`callback endpoint`** to receive the API response\n    \n2. List of unique **`machineIDs`**, their location details & IP addresses for whitelisting\n    \n\n> **Note**: A Perkd representative shall assist the above \n  \n\n## Host\n\nHost used depends on the App you're testing with. You'll need different **`x-api-key`** for the different environments, even if its for the same Merchant.\n\n| APP | LIVE APP | TEST APP |\n| --- | --- | --- |\n| HOST | [https://api.perkd.io/prod](https://api.perkd.io/prod) | [https://api.perkd.io/test](https://api.perkd.io/test) |\n| Where to install | [App Store<br>GooglePlay Store](https://perkd.me/app) | Private Install Link provided by Perkd's staff |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18789674"
+	},
+	"item": [
+		{
+			"name": "Actions",
+			"item": [
+				{
+					"name": "Vending",
+					"item": [
+						{
+							"name": "Check In",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apiKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Actions/vending",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Actions",
+										"vending"
+									],
+									"query": [
+										{
+											"key": "* action",
+											"value": "",
+											"description": "`string`  * **checkin**",
+											"disabled": true
+										},
+										{
+											"key": "* machineId",
+											"value": "",
+											"description": "`string`\n\nUnique identifier of the vending machine",
+											"disabled": true
+										},
+										{
+											"key": "referenceId",
+											"value": "",
+											"description": "`string`\n\nAn optional reference identifier for the action (i.e. sessionId)",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "CheckIn QR",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"checkin\",\n    \"machineId\": \"machine-001\",\n    \"referenceId\": \"session-001\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/Actions/vending",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b?p=AlTJDEJsp1j2R0mS8zlb%2BEJMz%2B1R2uLjt96i4ZtB7Rp2%2FQ%2FL96%2B72aRJrZJ1x1CO1imTh%2FLcRadNUeUXm4EcyY7phiA%2FLRClv7REV1ORMvpW3I3VYdWdvVJSsn12OjJJo%2FZmbYlbeA3AHpZinLVUUCbS8zrJMUWrE3jrnGhKQFcFiqG5SI3CGB4qv69gU57hP%2BpVfLc9NRKwphwBz4kruF8PFZ1vt06seaWj%2BXBt8HNXl0V3IFIn1GnNcx7W5DRE%2BbgVpWa%2FX2NemYkTRBr6us7hD09Q7J7Qg9vZqP6nhKWAWZLSNe4y1ypdQ5PS0lHQ9tNup9RNhQPkKdOTSdvRwiaTgdSSP1wYBnV%2BbzvFqxjx8wyDCJY8RKEKuY1Jfk9ZK0KM%2FP7McK1LwfrZJpxhUAtHgl6YXoIXbuIdlnfd%2F2DwqkmKOnLleYmEktIGrAjQt2qgXVhIAMblSwOIQvgA%2F86KaWIu%2Fl7a%2Bc0MYdjyLOTxBfktPut0I7Q9UMI33hmJCpu4mSNyy4k6P19NbDVhTS7UP35TASxxCP682rHhz8GmiH%2BrK24%2BhisHAUhY54hhbK%2BkmkacXuP48wOdhH%2Fw%2F2uKLRflJ7TFtW4twh7q%2Fk6v%2BZ%2FgesY5WQpegLcWcpROuAcn5qdTK1RqkbR6hxKeQQ%3D%3D\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apiKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Actions/vending",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Actions",
+										"vending"
+									],
+									"query": [
+										{
+											"key": "* action",
+											"value": "",
+											"description": "`string`  * **order**",
+											"disabled": true
+										},
+										{
+											"key": "* machineId",
+											"value": "",
+											"description": "`string`\n\nUnique identifier of the vending machine",
+											"disabled": true
+										},
+										{
+											"key": "* items",
+											"value": "",
+											"description": "`objArray`\n\nList of items selected by customer\n> Refer to [Item Object](#c69abff7-186f-4d5f-9d91-ae2236cb662b)",
+											"disabled": true
+										},
+										{
+											"key": "referenceId",
+											"value": "",
+											"description": "`string`\n\nAn optional reference identifier for the action (ie: orderId)",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"order\",\n    \"machineId\": \"ff83594b17764809b3e451574ed3d000\",\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"variantId\": \"899678900007\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"draftorder-001\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://api.perkd.io/test/Actions/vending",
+											"protocol": "https",
+											"host": [
+												"api",
+												"perkd",
+												"io"
+											],
+											"path": [
+												"test",
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b?p=AlTJDEJsp1j2R0mS8zlb%2BEJMz%2B1R2uLjt96i4ZtB7Rp2%2FQ%2FL96%2B72aRJrZJ1x1CO1imTh%2FLcRadNUeUXm4EcyY7phiA%2FLRClv7REV1ORMvpW3I3VYdWdvVJSsn12OjJJo%2FZmbYlbeA3AHpZinLVUUCbS8zrJMUWrE3jrnGhKQFcFiqG5SI3CGB4qv69gU57hP%2BpVfLc9NRKwphwBz4kruF8PFZ1vt06seaWj%2BXBt8HNXl0V3IFIn1GnNcx7W5DRE%2BbgVpWa%2FX2NemYkTRBr6us7hD09Q7J7Qg9vZqP6nhKWAWZLSNe4y1ypdQ5PS0lHQ9tNup9RNhQPkKdOTSdvRwiaTgdSSP1wYBnV%2BbzvFqxjx8wyDCJY8RKEKuY1Jfk9ZK0KM%2FP7McK1LwfrZJpxhUAtHgl6YXoIXbuIdlnfd%2F2DwqkmKOnLleYmEktIGrAjQt2qgXVhIAMblSwOIQvgA%2F86KaWIu%2Fl7a%2Bc0MYdjyLOTxBfktPut0I7Q9UMI33hmJCpu4mSNyy4k6P19NbDVhTS7UP35TASxxCP682rHhz8GmiH%2BrK24%2BhisHAUhY54hhbK%2BkmkacXuP48wOdhH%2Fw%2F2uKLRflJ7TFtW4twh7q%2Fk6v%2BZ%2FgesY5WQpegLcWcpROuAcn5qdTK1RqkbR6hxKeQQ%3D%3D\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Pickup",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apiKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Actions/vending",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Actions",
+										"vending"
+									],
+									"query": [
+										{
+											"key": "* action",
+											"value": "",
+											"description": "`string`  * **pickup**",
+											"disabled": true
+										},
+										{
+											"key": "* machineId",
+											"value": "",
+											"description": "`string`\nUnique identifier of the vending machine",
+											"disabled": true
+										},
+										{
+											"key": "items",
+											"value": "",
+											"description": "`objArray`\n\nList of items selected by customer\n> Refer to [Item Object](#c69abff7-186f-4d5f-9d91-ae2236cb662b)",
+											"disabled": true
+										},
+										{
+											"key": "orderId",
+											"value": null,
+											"description": "`string`\n\nfor pickups of items purchased in-app. Retrieved from check-in action",
+											"disabled": true
+										},
+										{
+											"key": "referenceId",
+											"value": "",
+											"description": "`string`\n\nAn optional reference identifier for the action (ie: redemptionId)",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "In-app Order",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"pickup\",\n    \"machineId\": \"machine-001\",\n    \"orderId\": \"663274bdbc608300006f294b\",\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"session-001\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/Actions/vending",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b\"\n}"
+								},
+								{
+									"name": "Sampling",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"pickup\",\n    \"machineId\": \"machine-001\",\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"session-001\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/Actions/vending",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Pay",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apiKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Actions/vending",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Actions",
+										"vending"
+									],
+									"query": [
+										{
+											"key": "* action",
+											"value": "",
+											"description": "`string`  * **pay**",
+											"disabled": true
+										},
+										{
+											"key": "* machineId",
+											"value": "",
+											"description": "`string`\n\nUnique identifier of the vending machine",
+											"disabled": true
+										},
+										{
+											"key": "* order",
+											"value": "",
+											"description": "`objArray`\n\n> Refer to [Order Object](#18789674-662d1b4a-6ffe-4311-8f71-04397088ff30)",
+											"disabled": true
+										},
+										{
+											"key": "referenceId",
+											"value": "",
+											"description": "`string`\n\nAn optional reference identifier for the action (ie: transactionId)",
+											"disabled": true
+										},
+										{
+											"key": "capture",
+											"value": "",
+											"description": "`boolen`\n\nDefault true. Set to ***false*** to manually capture payment with [Pay Commit](#18789674-6f3f3971-bfe3-43fa-a4e9-2d4b2ab71bd8)",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"pay\",\n    \"machineId\": \"63f83b0a797b24003beb0d74\",\n    \"order\": {\n        \"currency\": \"MYR\",\n        \"amount\": 20\n    },\n    \"referenceId\": \"txn-12345\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/Actions/vending",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b?p=AlTJDEJsp1j2R0mS8zlb%2BEJMz%2B1R2uLjt96i4ZtB7Rp2%2FQ%2FL96%2B72aRJrZJ1x1CO1imTh%2FLcRadNUeUXm4EcyY7phiA%2FLRClv7REV1ORMvpW3I3VYdWdvVJSsn12OjJJo%2FZmbYlbeA3AHpZinLVUUCbS8zrJMUWrE3jrnGhKQFcFiqG5SI3CGB4qv69gU57hP%2BpVfLc9NRKwphwBz4kruF8PFZ1vt06seaWj%2BXBt8HNXl0V3IFIn1GnNcx7W5DRE%2BbgVpWa%2FX2NemYkTRBr6us7hD09Q7J7Qg9vZqP6nhKWAWZLSNe4y1ypdQ5PS0lHQ9tNup9RNhQPkKdOTSdvRwiaTgdSSP1wYBnV%2BbzvFqxjx8wyDCJY8RKEKuY1Jfk9ZK0KM%2FP7McK1LwfrZJpxhUAtHgl6YXoIXbuIdlnfd%2F2DwqkmKOnLleYmEktIGrAjQt2qgXVhIAMblSwOIQvgA%2F86KaWIu%2Fl7a%2Bc0MYdjyLOTxBfktPut0I7Q9UMI33hmJCpu4mSNyy4k6P19NbDVhTS7UP35TASxxCP682rHhz8GmiH%2BrK24%2BhisHAUhY54hhbK%2BkmkacXuP48wOdhH%2Fw%2F2uKLRflJ7TFtW4twh7q%2Fk6v%2BZ%2FgesY5WQpegLcWcpROuAcn5qdTK1RqkbR6hxKeQQ%3D%3D\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Authorize",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apiKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Actions/vending",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Actions",
+										"vending"
+									],
+									"query": [
+										{
+											"key": "* action",
+											"value": "",
+											"description": "`string`  * **pay**",
+											"disabled": true
+										},
+										{
+											"key": "* machineId",
+											"value": "",
+											"description": "`string`\n\nUnique identifier of the vending machine",
+											"disabled": true
+										},
+										{
+											"key": "referenceId",
+											"value": "",
+											"description": "`string`\n\nAn optional reference identifier for the action (ie: transactionId)",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"authorize\",\n    \"machineId\": \"63f83b0a797b24003beb0d74\",\n    \"referenceId\": \"txn-12345\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/Actions/vending",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b?p=AlTJDEJsp1j2R0mS8zlb%2BEJMz%2B1R2uLjt96i4ZtB7Rp2%2FQ%2FL96%2B72aRJrZJ1x1CO1imTh%2FLcRadNUeUXm4EcyY7phiA%2FLRClv7REV1ORMvpW3I3VYdWdvVJSsn12OjJJo%2FZmbYlbeA3AHpZinLVUUCbS8zrJMUWrE3jrnGhKQFcFiqG5SI3CGB4qv69gU57hP%2BpVfLc9NRKwphwBz4kruF8PFZ1vt06seaWj%2BXBt8HNXl0V3IFIn1GnNcx7W5DRE%2BbgVpWa%2FX2NemYkTRBr6us7hD09Q7J7Qg9vZqP6nhKWAWZLSNe4y1ypdQ5PS0lHQ9tNup9RNhQPkKdOTSdvRwiaTgdSSP1wYBnV%2BbzvFqxjx8wyDCJY8RKEKuY1Jfk9ZK0KM%2FP7McK1LwfrZJpxhUAtHgl6YXoIXbuIdlnfd%2F2DwqkmKOnLleYmEktIGrAjQt2qgXVhIAMblSwOIQvgA%2F86KaWIu%2Fl7a%2Bc0MYdjyLOTxBfktPut0I7Q9UMI33hmJCpu4mSNyy4k6P19NbDVhTS7UP35TASxxCP682rHhz8GmiH%2BrK24%2BhisHAUhY54hhbK%2BkmkacXuP48wOdhH%2Fw%2F2uKLRflJ7TFtW4twh7q%2Fk6v%2BZ%2FgesY5WQpegLcWcpROuAcn5qdTK1RqkbR6hxKeQQ%3D%3D\"\n}"
+								}
+							]
+						}
+					],
+					"description": "Action QR generation for Check In, Order, Pickup & Pay at Vending Machine\n\n\\* - required fields"
+				},
+				{
+					"name": "Kiosk",
+					"item": [
+						{
+							"name": "Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apiKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Actions/kiosk",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Actions",
+										"kiosk"
+									],
+									"query": [
+										{
+											"key": "* action",
+											"value": "",
+											"description": "`string`\n\n* **order**",
+											"disabled": true
+										},
+										{
+											"key": "* machineId",
+											"value": "",
+											"description": "`string`\n\nUnique identifier of the self-service kiosk",
+											"disabled": true
+										},
+										{
+											"key": "* items",
+											"value": "",
+											"description": "`objArray`\n\nList of items selected by customer\n> Refer to [Item Object](#c69abff7-186f-4d5f-9d91-ae2236cb662b)",
+											"disabled": true
+										},
+										{
+											"key": "referenceId",
+											"value": "",
+											"description": "`string`\n\nAn optional reference identifier for the action",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"action\": \"order\",\n    \"machineId\": \"ff83594b17764809b3e451574ed3d000\",\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"variantId\": \"899678900007\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"draftorder-001\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://api.perkd.io/test/Actions/vending",
+											"protocol": "https",
+											"host": [
+												"api",
+												"perkd",
+												"io"
+											],
+											"path": [
+												"test",
+												"Actions",
+												"vending"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 22 May 2023 07:02:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "778"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "Apigw-Requestid",
+											"value": "FT__cg7cyQ0EJcg="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uri\": \"https://app.perkd.me/64633389e1788b003a234a3b?p=AlTJDEJsp1j2R0mS8zlb%2BEJMz%2B1R2uLjt96i4ZtB7Rp2%2FQ%2FL96%2B72aRJrZJ1x1CO1imTh%2FLcRadNUeUXm4EcyY7phiA%2FLRClv7REV1ORMvpW3I3VYdWdvVJSsn12OjJJo%2FZmbYlbeA3AHpZinLVUUCbS8zrJMUWrE3jrnGhKQFcFiqG5SI3CGB4qv69gU57hP%2BpVfLc9NRKwphwBz4kruF8PFZ1vt06seaWj%2BXBt8HNXl0V3IFIn1GnNcx7W5DRE%2BbgVpWa%2FX2NemYkTRBr6us7hD09Q7J7Qg9vZqP6nhKWAWZLSNe4y1ypdQ5PS0lHQ9tNup9RNhQPkKdOTSdvRwiaTgdSSP1wYBnV%2BbzvFqxjx8wyDCJY8RKEKuY1Jfk9ZK0KM%2FP7McK1LwfrZJpxhUAtHgl6YXoIXbuIdlnfd%2F2DwqkmKOnLleYmEktIGrAjQt2qgXVhIAMblSwOIQvgA%2F86KaWIu%2Fl7a%2Bc0MYdjyLOTxBfktPut0I7Q9UMI33hmJCpu4mSNyy4k6P19NbDVhTS7UP35TASxxCP682rHhz8GmiH%2BrK24%2BhisHAUhY54hhbK%2BkmkacXuP48wOdhH%2Fw%2F2uKLRflJ7TFtW4twh7q%2Fk6v%2BZ%2FgesY5WQpegLcWcpROuAcn5qdTK1RqkbR6hxKeQQ%3D%3D\"\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"description": "**Actions** are predefined sets of commands or requests that trigger specific tasks or interactions within [<b>Perkd Wallet app</b>](https://)**.**\n\nAn action url generated:\n\n- Can be presented as **QR Codes or NFC Tags**\n- Default validity is **1 hour**\n    \n\n> **SUPPORTED ACTIONS** \n  \n\n| Actions | Descriptions | Machine Supported |\n| --- | --- | --- |\n| **Check In** | For checking into machine location. Used before \"**Order Action**\" to identify the customer. | Vending, Kiosk |\n| **Order** | Initiate an Order Check-out process after customer picked out items on the machine. | Vending, Kiosk |\n| **Pay** | For collecting / authorising payments at the machine. Eg: Pay for parking tickets. | Vending, Kiosk |\n| **Pickup** | For Sample Redemptions, or Self-Pickup orders placed off-machine. | Vending |",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Pay",
+			"item": [
+				{
+					"name": "Commit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/Pay/commit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"Pay",
+								"commit"
+							],
+							"query": [
+								{
+									"key": "* intentId",
+									"value": "",
+									"description": "`string` \n\nUnique identifier of the payment intent authorized",
+									"disabled": true
+								},
+								{
+									"key": "* order",
+									"value": "",
+									"description": "`object`\n\n> Refer to [Order Object](#662d1b4a-6ffe-4311-8f71-04397088ff30). Use with actions:  ***pay***",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nCustom identifier assigned for internal reference that associates to additional info",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"intentId\": \"intent_7l0Wu9igpsDTUJYWLPzA9\",\n    \"order\": {\n        \"amount\": 2,\n        \"currency\": \"MYR\",\n        \"items\": [\n            {\n                \"title\": \"Coke\",\n                \"variantId\": \"899678900007\",\n                \"sku\": \"COLA_COKE01\",\n                \"unitPrice\": 3,\n                \"inventory\": 10,\n                \"quantity\": 1,\n                \"images\": [\n                    \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n                ]\n            }\n        ]\n    },\n    \"referenceId\": \"transaction_008\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Pay/commit",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Pay",
+										"commit"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Cancel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/Pay/cancel",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"Pay",
+								"cancel"
+							],
+							"query": [
+								{
+									"key": "* intentId",
+									"value": "",
+									"description": "`string` \n\nUnique identifier of the payment intent authorized",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nCustom identifier assigned for internal reference that associates to additional info",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cancel",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"intentId\": \"intent_mqtL_qS9TpGDcTBQbEVLC\",\n    \"referenceId\": \"transaction_008\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/Pay/cancel",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"Pay",
+										"cancel"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Callbacks",
+			"item": [
+				{
+					"name": "Check In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/checkin/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"checkin",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "person",
+									"value": "",
+									"description": "`object` \n\n> Member's personal info. Refer to [Person Object](#95cf2852-eaae-40d3-980b-86e96619666d)",
+									"disabled": true
+								},
+								{
+									"key": "membership",
+									"value": "",
+									"description": "`object` \n\n> Membership info. Refer to [Membership Object](#500477c8-58c7-452f-aae8-bc54931d7327)",
+									"disabled": true
+								},
+								{
+									"key": "pickups",
+									"value": "",
+									"description": "`objArray`\n\n> Items redeemable / collectable at this machine. Refer to [Item Object](#662d1b4a-6ffe-4311-8f71-04397088ff30)",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nEchoed from referenceId used to generate check-in QR",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success (items with options)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"person\": {\n        \"familyName\": \"Lee\",\n        \"givenName\": \"Michelle\",\n        \"fullName\": \"Michelle Lee\",\n        \"gender\": \"f\",\n        \"birthDate\": \"1988-11-11\",\n        \"profileImageUrl\": \"https://s3-us-west-1.amazonaws.com/s3staging.perkd.me/profile/e2d676f0-7831-11ed-9b56-bd5dd8062a36.jpg\"\n    },\n    \"membership\": {\n        \"cardNumber\": \"IGTEST000194\",\n        \"tier\": 1,\n        \"startTime\": \"2023-05-05T01:07:58.846Z\",\n        \"endTime\": \"2024-06-08T15:59:59.999Z\",\n        \"cardImageUrl\": \"https://s3-ap-southeast-1.amazonaws.com/s3staging.waveo.com/card/d82ad730-c24d-11ed-9c77-55cf3b5556b8-front.png\"\n    },\n    \"pickups\": [\n        {\n            \"orderId\": \"663274bdbc608300006f294b\",\n            \"items\": [\n                {\n                    \"title\": \"Mushroom Max\",\n                    \"sku\": \"MMT890\",\n                    \"unitPrice\": 5.9,\n                    \"quantity\": 1,\n                    \"inventory\": 10,\n                    \"images\": [\n                        \"https://cdn.shopify.com/s/files/1/0799/3376/7965/files/WhatsAppImage2024-06-21at2.32.45PM_52872b11-e3ed-4d32-8466-a4bf73a3c35f.jpg\"\n                    ],\n                    \"options\": [\n                        {\n                            \"key\": \"temperature\",\n                            \"title\": \"Temperature\",\n                            \"values\": [\n                                {\n                                    \"title\": \"Heat Up\",\n                                    \"price\": 0,\n                                    \"quantity\": 1\n                                }\n                            ],\n                            \"required\": true,\n                            \"min\": 1,\n                            \"max\": 1,\n                            \"type\": \"radioboxList\"\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"orderId\": \"663274bdbc608300006f7523\",\n            \"items\": [\n                {\n                    \"title\": \"Coke\",\n                    \"variantId\": \"899678900007\",\n                    \"sku\": \"COLA_COKE01\",\n                    \"unitPrice\": 3,\n                    \"quantity\": 1,\n                    \"images\": [\n                        \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n                    ]\n                },\n                {\n                    \"title\": \"Sprite\",\n                    \"variantId\": \"899678900008\",\n                    \"sku\": \"SPRITE_01\",\n                    \"unitPrice\": 3,\n                    \"quantity\": 1,\n                    \"images\": [\n                        \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_2.jpg\"\n                    ]\n                }\n            ]\n        }\n    ],\n    \"referenceId\": \"session-0001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{your_callback_url}}/perkd/checkin/{{machineId}}",
+									"host": [
+										"{{your_callback_url}}"
+									],
+									"path": [
+										"perkd",
+										"checkin",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"person\": {\n        \"familyName\": \"Lee\",\n        \"givenName\": \"Michelle\",\n        \"fullName\": \"Michelle Lee\",\n        \"gender\": \"f\",\n        \"birthDate\": \"1988-11-11\",\n        \"profileImageUrl\": \"https://s3-us-west-1.amazonaws.com/s3staging.perkd.me/profile/e2d676f0-7831-11ed-9b56-bd5dd8062a36.jpg\"\n    },\n    \"membership\": {\n        \"cardNumber\": \"IGTEST000194\",\n        \"tier\": 1,\n        \"startTime\": \"2023-05-05T01:07:58.846Z\",\n        \"endTime\": \"2024-06-08T15:59:59.999Z\",\n        \"cardImageUrl\": \"https://s3-ap-southeast-1.amazonaws.com/s3staging.waveo.com/card/d82ad730-c24d-11ed-9c77-55cf3b5556b8-front.png\"\n    },\n    \"pickups\": [\n        {\n            \"orderId\": \"663274bdbc608300006f294b\",\n            \"items\": [\n                {\n                    \"title\": \"Coke\",\n                    \"variantId\": \"899678900007\",\n                    \"sku\": \"COLA_COKE01\",\n                    \"unitPrice\": 3,\n                    \"quantity\": 1,\n                    \"images\": [\n                        \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n                    ]\n                }\n            ]\n        },\n        {\n            \"orderId\": \"663274bdbc608300006f7523\",\n            \"items\": [\n                {\n                    \"title\": \"Coke\",\n                    \"variantId\": \"899678900007\",\n                    \"sku\": \"COLA_COKE01\",\n                    \"unitPrice\": 3,\n                    \"quantity\": 1,\n                    \"images\": [\n                        \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n                    ]\n                },\n                {\n                    \"title\": \"Sprite\",\n                    \"variantId\": \"899678900008\",\n                    \"sku\": \"SPRITE_01\",\n                    \"unitPrice\": 3,\n                    \"quantity\": 1,\n                    \"images\": [\n                        \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_2.jpg\"\n                    ]\n                }\n            ]\n        }\n    ],\n    \"referenceId\": \"session-0001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{your_callback_url}}/perkd/checkin/{{machineId}}",
+									"host": [
+										"{{your_callback_url}}"
+									],
+									"path": [
+										"perkd",
+										"checkin",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/order/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"order",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"description": "`string`\n\nStatus of the Order either:\n* **success**\n* **fail**",
+									"disabled": true
+								},
+								{
+									"key": "items",
+									"value": "",
+									"description": "`objArray`\n\n> Refer to [Item Object](#c69abff7-186f-4d5f-9d91-ae2236cb662b)",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nCarried over from Order Action QR generated",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success (with options)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"success\",\n    \"items\": [\n        {\n            \"title\": \"Mushroom Max\",\n            \"sku\": \"MMT890\",\n            \"unitPrice\": 5.9,\n            \"quantity\": 1,\n            \"inventory\": 10,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0799/3376/7965/files/WhatsAppImage2024-06-21at2.32.45PM_52872b11-e3ed-4d32-8466-a4bf73a3c35f.jpg\"\n            ],\n            \"options\": [\n                {\n                    \"key\": \"temperature\",\n                    \"title\": \"Temperature\",\n                    \"values\": [\n                        {\n                            \"title\": \"Heat Up\",\n                            \"price\": 0,\n                            \"quantity\": 1\n                        }\n                    ],\n                    \"required\": true,\n                    \"min\": 1,\n                    \"max\": 1,\n                    \"type\": \"radioboxList\"\n                }\n            ]\n        }\n    ],\n    \"referenceId\": \"order-003\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/order/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"order",
+										"{{machineId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"success\",\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"variantId\": \"899678900007\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"order-001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/order/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"order",
+										"{{machineId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Pickup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/pickup/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"pickup",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"description": "`string`\n\n* **success**\n* **fail**",
+									"disabled": true
+								},
+								{
+									"key": "items",
+									"value": "",
+									"description": "`objArray`\n\n> Refer to [Item Object](#18789674-c69abff7-186f-4d5f-9d91-ae2236cb662b)",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nCarried over from Pick Up Action QR generated",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success (with options)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"success\",\n    \"items\": [\n        {\n            \"title\": \"Mushroom Max\",\n            \"sku\": \"MMT890\",\n            \"unitPrice\": 5.9,\n            \"quantity\": 1,\n            \"inventory\": 10,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0799/3376/7965/files/WhatsAppImage2024-06-21at2.32.45PM_52872b11-e3ed-4d32-8466-a4bf73a3c35f.jpg\"\n            ],\n            \"options\": [\n                {\n                    \"key\": \"temperature\",\n                    \"title\": \"Temperature\",\n                    \"values\": [\n                        {\n                            \"title\": \"Heat Up\",\n                            \"price\": 0,\n                            \"quantity\": 1\n                        }\n                    ],\n                    \"required\": true,\n                    \"min\": 1,\n                    \"max\": 1,\n                    \"type\": \"radioboxList\"\n                }\n            ]\n        }\n    ],\n    \"referenceId\": \"order-001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/pickup/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"pickup",
+										"{{machineId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"variantId\": \"899678900007\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"order-001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/pickup/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"pickup",
+										"{{machineId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Pay",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/pay/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"pay",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"description": "`string`\n\n* **success**\n* **fail**",
+									"disabled": true
+								},
+								{
+									"key": "amount",
+									"value": "",
+									"description": "`integer`\n\nThe sum of all line item prices, taxes, and fees. Must be positive.",
+									"disabled": true
+								},
+								{
+									"key": "currency",
+									"value": "",
+									"description": "`string`\n\nThree-letter [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) currency code, in all capital letters.",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nCarried over from Pay Action QR generated",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"success\",\n    \"currency\": \"MYR\",\n    \"amount\": 20,\n    \"referenceId\": \"order-001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/pay/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"pay",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 22 May 2023 07:02:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "778"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Apigw-Requestid",
+									"value": "FT__cg7cyQ0EJcg="
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"failed\",\n    \"currency\": \"MYR\",\n    \"amount\": 20,\n    \"referenceId\": \"order-002\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/pay/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"pay",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 22 May 2023 07:02:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "778"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Apigw-Requestid",
+									"value": "FT__cg7cyQ0EJcg="
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Authorize",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/authorize/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"authorize",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"description": "`string`\n\n* **success**\n* **fail**",
+									"disabled": true
+								},
+								{
+									"key": "membership",
+									"value": "",
+									"description": "`string`\n\nThree-letter [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) currency code, in all capital letters.",
+									"disabled": true
+								},
+								{
+									"key": "referenceId",
+									"value": "",
+									"description": "`string`\n\nCarried over from Pay Action QR generated",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"success\",\n    \"referenceId\": \"session-001\",\n    \"membership\": {\n        \"cardNumber\": \"IGTEST000194\",\n        \"tier\": 1,\n        \"startTime\": \"2023-05-05T01:07:58.846Z\",\n        \"endTime\": \"2024-06-08T15:59:59.999Z\",\n        \"cardImageUrl\": \"https://s3-ap-southeast-1.amazonaws.com/s3staging.waveo.com/card/d82ad730-c24d-11ed-9c77-55cf3b5556b8-front.png\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/authorize/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"authorize",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 22 May 2023 07:02:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "778"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Apigw-Requestid",
+									"value": "FT__cg7cyQ0EJcg="
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"failed\",\n    \"referenceId\": \"session-002\",\n    \"reason\": \"insufficient_balance\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/perkd/authorize/{{machineId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"perkd",
+										"authorize",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 22 May 2023 07:02:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "778"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Apigw-Requestid",
+									"value": "FT__cg7cyQ0EJcg="
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Reserve",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/reserve/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"reserve",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "membership",
+									"value": "",
+									"description": "`object` \n> Membership info. Refer to [Membership Object](%23500477c8-58c7-452f-aae8-bc54931d7327)",
+									"disabled": true
+								},
+								{
+									"key": "items",
+									"value": "",
+									"description": "`objArray`\n> Refer to [Item Object](%2318789674-c69abff7-186f-4d5f-9d91-ae2236cb662b)",
+									"disabled": true
+								},
+								{
+									"key": "scheduled",
+									"value": "",
+									"description": "`object`\n\n{ minTime, maxTIme } \nscheduled time slot to pickup",
+									"disabled": true
+								},
+								{
+									"key": "orderId",
+									"value": "",
+									"description": "`objArray`\n> Refer to [Order Object](#18789674-662d1b4a-6ffe-4311-8f71-04397088ff30)",
+									"disabled": true
+								},
+								{
+									"key": "machineId",
+									"value": null,
+									"description": "`string`",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success (with options)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"membership\": {\n        \"cardNumber\": \"F0000001\"\n    },\n    \"items\": [\n        {\n            \"title\": \"Cheezy Popcorn Chicken (taglio)\",\n            \"sku\": \"CPCT890\",\n            \"unitPrice\": 8.9,\n            \"variantId\": \"6758eeeb1be83528b8d84835\",\n            \"quantity\": 1,\n            \"images\": [\n                \"https://zealmy-demo.myshopify.com/cdn/shop/files/Chezzypopcornchicken_boat_b960b84f-b776-4cec-a1f1-a5d0e1b68714.jpg?v=1733881827\"\n            ],\n            \"options\": [\n                {\n                    \"key\": \"size\",\n                    \"title\": \"Temperature\",\n                    \"values\": [\n                        {\n                            \"title\": \"Heat Up\",\n                            \"price\": 0,\n                            \"quantity\": 1\n                        }\n                    ],\n                    \"required\": true,\n                    \"min\": 1,\n                    \"max\": 1,\n                    \"type\": \"radioboxList\"\n                }\n            ]\n        }\n    ],\n    \"scheduled\": {\n        \"minTime\": \"2025-02-24T05:35:06.270Z\"\n    },\n    \"machineId\": \"machine123\",\n    \"orderId\": \"67bc03df32c63f000059bb94\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{your_callback_url}}/perkd/reserve/{{machineId}}",
+									"host": [
+										"{{your_callback_url}}"
+									],
+									"path": [
+										"perkd",
+										"reserve",
+										"{{machineId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"membership\": {\n        \"cardNumber\": \"TEST0001\"\n    },\n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"variantId\": \"899678900007\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"scheduled\": {\n        \"minTime\": \"2023-08-17T01:22:56.859\",\n        \"maxTime\": \"2023-08-18T01:22:56.859\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{your_callback_url}}/perkd/reserve/{{machineId}}",
+									"host": [
+										"{{your_callback_url}}"
+									],
+									"path": [
+										"perkd",
+										"reserve",
+										"{{machineId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Each [<b>Action</b>]() is paired with a corresponding Callback endpoint that transmits data back to your machine server whenever user interacted / completed the Action.\n\n> Note: Ensure all MachineIds registered are **Universally Unique** as each callback is specific to the machine it originates from. \n  \n\nThe callback mechanism maintains a persistent retry process until it receives a successful response with a **`status code 200`**"
+		},
+		{
+			"name": "Objects Schema",
+			"item": [
+				{
+					"name": "Order Object",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "",
+							"query": [
+								{
+									"key": "* currency",
+									"value": "",
+									"description": "`string`\n\nThree-letter **[ISO 4217 currency code](https://www.iso.org/iso-4217-currency-codes.html)**, in ALL CAPS",
+									"disabled": true
+								},
+								{
+									"key": "* amount",
+									"value": "",
+									"description": "`integer`\n\nSum of all line item prices, discounts, taxes, and fees in the local currency. Must be positive.",
+									"disabled": true
+								},
+								{
+									"key": "taxAmount",
+									"value": "",
+									"description": "`integer`\n\nCalculated tax amount based on Merchant's [Regional Tax Policy](https://help.shopify.com/en/manual/taxes).",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": null,
+									"description": "`string`",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "-",
+									"host": [
+										"-"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \n    \"items\": [\n        {\n            \"title\": \"Coke\",\n            \"variantId\": \"899678900007\",\n            \"sku\": \"COLA_COKE01\",\n            \"unitPrice\": 3,\n            \"inventory\": 10,\n            \"quantity\": 1,\n            \"images\": [\n                \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n            ]\n        }\n    ],\n    \"referenceId\": \"order-001\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Item Object",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "",
+							"query": [
+								{
+									"key": "* title",
+									"value": "",
+									"description": "`integer`\n\nProduct name",
+									"disabled": true
+								},
+								{
+									"key": "* sku",
+									"value": "",
+									"description": "`string`\n\n[Stock Keeping Unit](https://help.shopify.com/en/manual/products/details/sku) - **Unique Identifier** that match with Shopify Variant SKU",
+									"disabled": true
+								},
+								{
+									"key": "* unitPrice",
+									"value": "",
+									"description": "`integer` \n\nUnit price of product or services, up to 3 decimal points.",
+									"disabled": true
+								},
+								{
+									"key": "* images",
+									"value": "",
+									"description": "`array`\n\nProduct images URL. Only support unencrypted publicly hosted resources.",
+									"disabled": true
+								},
+								{
+									"key": "* tags",
+									"value": "",
+									"description": "`array`",
+									"disabled": true
+								},
+								{
+									"key": "variantId",
+									"value": "",
+									"description": "`string` \n\nShopify variantId",
+									"disabled": true
+								},
+								{
+									"key": "quantity",
+									"value": "",
+									"description": "`integer`\n\n**Default as 1**. Must NOT exceed Inventory value",
+									"disabled": true
+								},
+								{
+									"key": "inventory",
+									"value": "",
+									"description": "`integer`\n\nStocks available on Machine. Used for quantity validation if provided.",
+									"disabled": true
+								},
+								{
+									"key": "options",
+									"value": "",
+									"description": "`objArray`\n> Refer to [Option Object](#c61b610d-3926-4e18-8c4c-7451b05270ac)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Item with Options",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Mushroom Max\",\n  \"sku\": \"MMT890\",\n  \"unitPrice\": 5.9,\n  \"quantity\": 1,\n  \"inventory\": 10,\n  \"images\": [\n    \"https://cdn.shopify.com/s/files/1/0799/3376/7965/files/WhatsAppImage2024-06-21at2.32.45PM_52872b11-e3ed-4d32-8466-a4bf73a3c35f.jpg\"\n  ],\n  \"options\": [\n    {\n      \"key\": \"temperature\",\n      \"title\": \"Temperature\",\n      \"type\": \"radioboxList\",\n      \"max\": 1,\n      \"min\": 1,\n      \"required\": true,\n      \"values\": [\n        {\n          \"title\": \"Heat Up\",\n          \"price\": 0,\n          \"selected\": true\n        },\n        {\n          \"title\": \"Serve Chilled\",\n          \"price\": 0,\n          \"selected\": false\n        }\n      ]\n    }\n  ]\n}"
+						},
+						{
+							"name": "Item",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"title\": \"Coke\",\n    \"sku\": \"COLA_COKE01\",\n    \"variantId\": \"899678900007\",\n    \"unitPrice\": 3,\n    \"quantity\": 1,\n    \"inventory\": 10,\n    \"images\": [\n        \"https://cdn.shopify.com/s/files/1/0726/1008/7230/products/279875_1.jpg\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Option Object",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "",
+							"query": [
+								{
+									"key": "* key",
+									"value": "",
+									"description": "`string`\n\nUnique Id",
+									"disabled": true
+								},
+								{
+									"key": "* title",
+									"value": "",
+									"description": "`string`\n\nDisplay name, eg: Temperature, Size, Color",
+									"disabled": true
+								},
+								{
+									"key": "* values",
+									"value": "",
+									"description": "`OptionValue[]`\n\n> Refer to [OptionValue Object](#16df19a2-6475-47d0-8b18-74dc4867b24a)",
+									"disabled": true
+								},
+								{
+									"key": "value",
+									"value": "",
+									"description": "`objArray`\n> Refer to [OptionValue Object](#18789674-c61b610d-3926-4e18-8c4c-7451b05270ac)",
+									"disabled": true
+								},
+								{
+									"key": "required",
+									"value": "",
+									"description": "`boolean`\n\ndefault FALSE. will pre-select if TRUE",
+									"disabled": true
+								},
+								{
+									"key": "unique",
+									"value": "",
+									"description": "`boolean`\n\nTRUE => single selection per option",
+									"disabled": true
+								},
+								{
+									"key": "min",
+									"value": "",
+									"description": "`integer`\n\nMinimum quantity to be selected",
+									"disabled": true
+								},
+								{
+									"key": "max",
+									"value": "",
+									"description": "`integer`\n\nMaximum quantity to be selected",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "",
+									"description": "`string`\n\nUI component\nradioboxList | checkboxList | tagList | quantityList | switchList | carousel | slider | input",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Options",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"key\": \"temperature\",\n  \"title\": \"Temperature\",\n  \"type\": \"radioboxList\",\n  \"required\": true,\n  \"max\": 1,\n  \"min\": 1,\n  \"values\": [\n    {\n      \"id\": \"001\",\n      \"title\": \"Heat Up\",\n      \"price\": 0,\n      \"selected\": true\n    },\n    {\n      \"id\": \"002\",\n      \"title\": \"Serve Chilled\",\n      \"price\": 0,\n      \"selected\": false\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "OptionValue Object",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "",
+							"query": [
+								{
+									"key": "*id",
+									"value": null,
+									"description": "`string`\nunique identifier",
+									"disabled": true
+								},
+								{
+									"key": "* title",
+									"value": "",
+									"description": "`string`\n\ndisplay name, eg: Blue, L, Heat Up",
+									"disabled": true
+								},
+								{
+									"key": "* selected",
+									"value": "",
+									"description": "`boolean`\n\ndefault FALSE. will pre-select if TRUE",
+									"disabled": true
+								},
+								{
+									"key": "price",
+									"value": "",
+									"description": "`integer`",
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"value": "",
+									"description": "`string`\n\nOption image URL",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "temperature",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"name\": \"Heat Up\",\n  \"selected\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Person Object",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "",
+							"query": [
+								{
+									"key": "familyName",
+									"value": "",
+									"description": "`string`",
+									"disabled": true
+								},
+								{
+									"key": "givenName",
+									"value": "",
+									"description": "`string`",
+									"disabled": true
+								},
+								{
+									"key": "fullName",
+									"value": "",
+									"description": "`string`",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "",
+									"description": "`string`\n\n* f\n* m",
+									"disabled": true
+								},
+								{
+									"key": "birthDate",
+									"value": "",
+									"description": "`string`\n\nYYYY-MM-DD",
+									"disabled": true
+								},
+								{
+									"key": "profileImageUrl",
+									"value": "",
+									"description": "`string`",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "person",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"familyName\": \"Lee\",\n    \"givenName\": \"Michelle\",\n    \"fullName\": \"Michelle Lee\",\n    \"gender\": \"f\",\n    \"birthDate\": \"1988-11-11\",\n    \"profileImageUrl\": \"https://s3-us-west-1.amazonaws.com/s3staging.perkd.me/profile/e2d676f0-7831-11ed-9b56-bd5dd8062a36.jpg\"\n  }"
+						}
+					]
+				},
+				{
+					"name": "Membership Object",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "",
+							"query": [
+								{
+									"key": "* cardNumber",
+									"value": "",
+									"description": "`string`\n\nMember's card number",
+									"disabled": true
+								},
+								{
+									"key": "tier",
+									"value": "",
+									"description": "`integer`\n\nMembership tier level. Greater number represents higher tiers",
+									"disabled": true
+								},
+								{
+									"key": "startTime",
+									"value": "",
+									"description": "`string`\n\nMembership join date in timestamp [ISO8601](https://www.ionos.com/digitalguide/websites/web-development/iso-8601/)",
+									"disabled": true
+								},
+								{
+									"key": "endTime",
+									"value": "",
+									"description": "`string`\n\nMembership expiry date in timestamp [ISO8601](https://www.ionos.com/digitalguide/websites/web-development/iso-8601/)",
+									"disabled": true
+								},
+								{
+									"key": "cardImageUrl",
+									"value": "",
+									"description": "`string`",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "membership",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"cardNumber\": \"IGTEST000194\",\n    \"tier\": 1,\n    \"startTime\": \"2023-05-05T01:07:58.846Z\",\n    \"endTime\": \"2024-06-08T15:59:59.999Z\",\n    \"cardImageUrl\": \"https://s3-ap-southeast-1.amazonaws.com/s3staging.waveo.com/card/d82ad730-c24d-11ed-9c77-55cf3b5556b8-front.png\"\n  }"
+						}
+					]
+				}
+			],
+			"description": "Model definition that outlines the properties, attributes, rules, and relationships of the **Objects** **Data**.\n\n**Objects** are standardised across API Request, Response and Callback payload."
+		},
+		{
+			"name": "Machine [wip]",
+			"item": [
+				{
+					"name": "Webhook Events",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/events/{{machineId}}?topic=PRODUCTS_CREATE",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"events",
+								"{{machineId}}"
+							],
+							"query": [
+								{
+									"key": "topic",
+									"value": "PRODUCTS_CREATE"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{your_callback_url}}/perkd/checkin/{{machineId}}",
+									"host": [
+										"{{your_callback_url}}"
+									],
+									"path": [
+										"perkd",
+										"checkin",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Metrics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{your_callback_url}}/perkd/metrics/{{machineId}}",
+							"host": [
+								"{{your_callback_url}}"
+							],
+							"path": [
+								"perkd",
+								"metrics",
+								"{{machineId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{your_callback_url}}/perkd/checkin/{{machineId}}",
+									"host": [
+										"{{your_callback_url}}"
+									],
+									"path": [
+										"perkd",
+										"checkin",
+										"{{machineId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "For machines to receive following events for data syncing:  \n1\\. Product Create, Update, Delete  \n2\\. Location Create"
+		},
+		{
+			"name": "Microsite",
+			"item": [
+				{
+					"name": "join",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"form\": {\n        \"countryCode\": \"65\",\n        \"number\": \"89052305\",\n        \"locale\": {\n            \"languages\": [\n                \"en\"\n            ]\n        }\n    },\n    \"event\": \"{{remoteEventId}}\",\n    \"context\": {\n        \"userAgent\": \"Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1\",\n        \"site\": \"index.html\",\n        \"client_id\": \"350934216.1686678703\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://microsite.perkd.io/form",
+							"protocol": "https",
+							"host": [
+								"microsite",
+								"perkd",
+								"io"
+							],
+							"path": [
+								"form"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"form\": {\n        \"countryCode\": \"65\",\n        \"number\": \"12345678\",\n        \"locale\": {\n            \"languages\": [\n                \"en\"\n            ]\n        }\n    },\n    \"event\": \"01JG9N6FMDN39AYCM9489AN0CC\",\n    \"context\": {\n        \"userAgent\": \"Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1\",\n        \"site\": \"index.html\",\n        \"client_id\": \"350934216.1686678703\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://microsite.perkd.io/form",
+									"protocol": "https",
+									"host": [
+										"microsite",
+										"perkd",
+										"io"
+									],
+									"path": [
+										"form"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 29 Dec 2024 17:01:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "525210b0-221d-43a5-aba9-a04e87a898d2"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "DkD_0GrtSQ0EVcg="
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "OPTIONS,POST,GET"
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-67718064-2d357a9a128513e04d1aef34;Parent=69083a297d96d608;Sampled=0;Lineage=1:66bc3a17:0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"registered\": \"+6512345678\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Shopify API",
+			"item": [
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Get Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getOrderById($id: ID!) {\n  node(id: $id) {\n    id\n    ... on Order {\n      name\n      id\n      createdAt\n      currencyCode\n      totalPriceSet {\n        shopMoney {\n          amount\n          currencyCode\n        }\n      }\n      lineItems(first: 10) {\n        edges {\n          node {\n            title\n            quantity\n            sku\n            variant {\n              id\n              title\n              product {\n                id\n                title\n              }\n            }\n            originalUnitPriceSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n            discountedTotalSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n            taxLines {\n              title\n              rate\n              priceSet {\n                shopMoney {\n                  amount\n                  currencyCode\n                }\n              }\n            }\n          }\n        }\n      }\n      shippingLines(first: 5) {\n        edges {\n          node {\n            title\n            originalPriceSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n            discountedPriceSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n          }\n        }\n      }\n      fulfillments {\n        id\n        status\n        location {\n          id\n          name\n        }\n      }\n      transactions {\n        id\n        gateway\n        amountSet {\n          shopMoney {\n            amount\n            currencyCode\n          }\n        }\n        kind\n        status\n        processedAt\n      }\n    }\n  }\n}",
+										"variables": "{\n    \"id\": \"gid://shopify/Order/6621728506141\"\n}"
+									}
+								},
+								"url": {
+									"raw": "https://{{shopify_store_name}}/admin/api/{{shopify_api_version}}/graphql.json",
+									"protocol": "https",
+									"host": [
+										"{{shopify_store_name}}"
+									],
+									"path": [
+										"admin",
+										"api",
+										"{{shopify_api_version}}",
+										"graphql.json"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query getOrderById($id: ID!) {\n  node(id: $id) {\n    id\n    ... on Order {\n      name\n      id\n      createdAt\n      currencyCode\n      totalPriceSet {\n        shopMoney {\n          amount\n          currencyCode\n        }\n      }\n      lineItems(first: 10) {\n        edges {\n          node {\n            title\n            quantity\n            sku\n            variant {\n              id\n              title\n              product {\n                id\n                title\n              }\n            }\n            originalUnitPriceSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n            discountedTotalSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n            taxLines {\n              title\n              rate\n              priceSet {\n                shopMoney {\n                  amount\n                  currencyCode\n                }\n              }\n            }\n          }\n        }\n      }\n      shippingLines(first: 5) {\n        edges {\n          node {\n            title\n            originalPriceSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n            discountedPriceSet {\n              shopMoney {\n                amount\n                currencyCode\n              }\n            }\n          }\n        }\n      }\n      fulfillments {\n        id\n        status\n        location {\n          id\n          name\n        }\n      }\n      transactions {\n        id\n        gateway\n        amountSet {\n          shopMoney {\n            amount\n            currencyCode\n          }\n        }\n        kind\n        status\n        processedAt\n      }\n    }\n  }\n}",
+												"variables": "{\n    \"id\": \"gid://shopify/Order/6621728506141\"\n}"
+											}
+										},
+										"url": {
+											"raw": "https://{{shopify_store_name}}/admin/api/{{shopify_api_version}}/graphql.json",
+											"protocol": "https",
+											"host": [
+												"{{shopify_store_name}}"
+											],
+											"path": [
+												"admin",
+												"api",
+												"{{shopify_api_version}}",
+												"graphql.json"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 26 Mar 2025 04:50:32 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "x-sorting-hat-podid",
+											"value": "284"
+										},
+										{
+											"key": "x-sorting-hat-shopid",
+											"value": "79933767965"
+										},
+										{
+											"key": "vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "referrer-policy",
+											"value": "origin-when-cross-origin"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "DENY"
+										},
+										{
+											"key": "x-shopid",
+											"value": "79933767965"
+										},
+										{
+											"key": "x-shardid",
+											"value": "284"
+										},
+										{
+											"key": "x-stats-userid",
+											"value": ""
+										},
+										{
+											"key": "x-stats-apiclientid",
+											"value": "193939931137"
+										},
+										{
+											"key": "x-stats-apipermissionid",
+											"value": "806388138269"
+										},
+										{
+											"key": "x-shopify-api-version",
+											"value": "2025-01"
+										},
+										{
+											"key": "content-language",
+											"value": "en"
+										},
+										{
+											"key": "strict-transport-security",
+											"value": "max-age=7889238"
+										},
+										{
+											"key": "x-request-id",
+											"value": "296c911f-a667-4b41-8dc9-bd73c945b8e6-1742964632"
+										},
+										{
+											"key": "server-timing",
+											"value": "processing;dur=137, graphql;desc=\"admin/query/other\""
+										},
+										{
+											"key": "content-security-policy",
+											"value": "default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://* shopify-pos://*; block-all-mixed-content; child-src 'self' https://* shopify-pos://*; connect-src 'self' wss://* https://*; frame-ancestors 'none'; img-src 'self' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopifycdn.net https://checkout.pci.shopifyinc.com https://checkout.pci.shopifyinc.com/build/75a428d/card_fields.js https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com 'self' 'unsafe-inline' 'unsafe-eval'; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=query&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fgraphql&source%5Bsection%5D=admin_api&source%5Buuid%5D=296c911f-a667-4b41-8dc9-bd73c945b8e6-1742964632; report-to shopify-csp"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "x-download-options",
+											"value": "noopen"
+										},
+										{
+											"key": "x-permitted-cross-domain-policies",
+											"value": "none"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "reporting-endpoints",
+											"value": "shopify-csp=\"/csp-report?source%5Baction%5D=query&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fgraphql&source%5Bsection%5D=admin_api&source%5Buuid%5D=296c911f-a667-4b41-8dc9-bd73c945b8e6-1742964632\""
+										},
+										{
+											"key": "x-dc",
+											"value": "gcp-us-central1,gcp-us-central1,gcp-us-central1"
+										},
+										{
+											"key": "content-encoding",
+											"value": "gzip"
+										},
+										{
+											"key": "Alt-Svc",
+											"value": "h3=\":443\"; ma=86400"
+										},
+										{
+											"key": "cf-cache-status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=snIidMEARjusDJltB5u9AlP56AbFCxA9WhJBdrXOURLOo8%2BkqBCXuWecYGWeoqiMSP7CqjrvvlcmSOF%2FdY0w7pzg2AteYruGP5hXNC%2Bv0b%2B6OeT2nN4sfrJ2zo3piUFNznhrvQJ23orC44g%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0.01,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server-Timing",
+											"value": "cfRequestDuration;dur=420.999765"
+										},
+										{
+											"key": "Shopify-Edge-Ip",
+											"value": "23.227.38.74"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "926407194a079fbb-SIN"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"node\": {\n            \"id\": \"gid://shopify/Order/6621728506141\",\n            \"name\": \"#1403\",\n            \"createdAt\": \"2025-03-26T04:07:18Z\",\n            \"currencyCode\": \"MYR\",\n            \"totalPriceSet\": {\n                \"shopMoney\": {\n                    \"amount\": \"9.79\",\n                    \"currencyCode\": \"MYR\"\n                }\n            },\n            \"lineItems\": {\n                \"edges\": [\n                    {\n                        \"node\": {\n                            \"title\": \"Hawaiian Chicken Pepperoni (taglio)\",\n                            \"quantity\": 1,\n                            \"sku\": \"HCPT890\",\n                            \"variant\": {\n                                \"id\": \"gid://shopify/ProductVariant/49450150232349\",\n                                \"title\": \"Default Title\",\n                                \"product\": {\n                                    \"id\": \"gid://shopify/Product/9661078241565\",\n                                    \"title\": \"Hawaiian Chicken Pepperoni (taglio)\"\n                                }\n                            },\n                            \"originalUnitPriceSet\": {\n                                \"shopMoney\": {\n                                    \"amount\": \"8.9\",\n                                    \"currencyCode\": \"MYR\"\n                                }\n                            },\n                            \"discountedTotalSet\": {\n                                \"shopMoney\": {\n                                    \"amount\": \"8.9\",\n                                    \"currencyCode\": \"MYR\"\n                                }\n                            },\n                            \"taxLines\": [\n                                {\n                                    \"title\": \"SST\",\n                                    \"rate\": 0.1,\n                                    \"priceSet\": {\n                                        \"shopMoney\": {\n                                            \"amount\": \"0.89\",\n                                            \"currencyCode\": \"MYR\"\n                                        }\n                                    }\n                                }\n                            ]\n                        }\n                    }\n                ]\n            },\n            \"shippingLines\": {\n                \"edges\": [\n                    {\n                        \"node\": {\n                            \"title\": \"Vending\",\n                            \"originalPriceSet\": {\n                                \"shopMoney\": {\n                                    \"amount\": \"0.0\",\n                                    \"currencyCode\": \"MYR\"\n                                }\n                            },\n                            \"discountedPriceSet\": {\n                                \"shopMoney\": {\n                                    \"amount\": \"0.0\",\n                                    \"currencyCode\": \"MYR\"\n                                }\n                            }\n                        }\n                    }\n                ]\n            },\n            \"fulfillments\": [\n                {\n                    \"id\": \"gid://shopify/Fulfillment/5913495961885\",\n                    \"status\": \"SUCCESS\",\n                    \"location\": {\n                        \"id\": \"gid://shopify/Location/104023228701\",\n                        \"name\": \"Test (MY)\"\n                    }\n                }\n            ],\n            \"transactions\": [\n                {\n                    \"id\": \"gid://shopify/OrderTransaction/8061260038429\",\n                    \"gateway\": \"\",\n                    \"amountSet\": {\n                        \"shopMoney\": {\n                            \"amount\": \"9.79\",\n                            \"currencyCode\": \"MYR\"\n                        }\n                    },\n                    \"kind\": \"SALE\",\n                    \"status\": \"SUCCESS\",\n                    \"processedAt\": \"2025-03-26T04:07:18Z\"\n                }\n            ]\n        }\n    },\n    \"extensions\": {\n        \"cost\": {\n            \"requestedQueryCost\": 27,\n            \"actualQueryCost\": 13,\n            \"throttleStatus\": {\n                \"maximumAvailable\": 2000,\n                \"currentlyAvailable\": 1987,\n                \"restoreRate\": 100\n            }\n        }\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation OrderCreate($order: OrderCreateOrderInput!, $options: OrderCreateOptionsInput) {\n  orderCreate(order: $order, options: $options) {\n    userErrors {\n      field\n      message\n    }\n    order {\n      name\n      id\n      displayFinancialStatus\n      displayFulfillmentStatus\n      createdAt\n      processedAt\n    }\n  }\n}",
+										"variables": "{\n  \"order\": {\n    \"name\": \"M-{{$randomInt}}\",\n    \"sourceName\": \"machine\",\n    \"sourceIdentifier\": \"machine_id_0001\",\n    \"currency\": \"MYR\",\n    \"fulfillmentStatus\": \"FULFILLED\",\n    \"lineItems\": [\n      {\n        \"title\": \"Hawaiian Chicken Pepperoni (taglio)\",\n        \"sku\": \"HCPT890\",\n        \"variantId\": \"gid://shopify/ProductVariant/49450150232349\",\n        \"requiresShipping\": true,\n        \"quantity\": 1,\n        \"priceSet\": {\n          \"shopMoney\": {\n            \"amount\": 8.90,\n            \"currencyCode\": \"MYR\"\n          }\n        },\n        \"properties\": [\n          {\n            \"name\": \"Temperature\",\n            \"value\": \"Heat Up\"\n          }\n        ]\n      }\n    ],\n    \"tags\": [\n      \"tng\"\n    ],\n    \"taxesIncluded\": true,\n    \"taxLines\": [\n      {\n        \"priceSet\": {\n          \"shopMoney\": {\n            \"amount\": 0.89,\n            \"currencyCode\": \"MYR\"\n          }\n        },\n        \"rate\": \"0.01\",\n        \"title\": \"SST\"\n      }\n    ],\n    \"transactions\": [\n      {\n        \"kind\": \"SALE\",\n        \"status\": \"SUCCESS\",\n        \"gateway\": \"Tng\",\n        \"amountSet\": {\n          \"shopMoney\": {\n            \"amount\": 8.9,\n            \"currencyCode\": \"MYR\"\n          }\n        }\n      }\n    ],\n    \"shippingLines\": [\n      {\n        \"title\": \"Vending\",\n        \"priceSet\": {\n          \"shopMoney\": {\n            \"amount\": 0,\n            \"currencyCode\": \"MYR\"\n          }\n        }\n      }\n    ],\n    \"fulfillment\": {\n      \"locationId\": \"gid://shopify/Location/88633508125\"\n    }\n  },\n  \"options\": {\n    \"sendReceipt\": false,\n    \"sendFulfillmentReceipt\": false\n  }\n}"
+									}
+								},
+								"url": {
+									"raw": "https://{{shopify_store_name}}/admin/api/{{shopify_api_version}}/graphql.json",
+									"protocol": "https",
+									"host": [
+										"{{shopify_store_name}}"
+									],
+									"path": [
+										"admin",
+										"api",
+										"{{shopify_api_version}}",
+										"graphql.json"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "paid & fulfilled guest order",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation OrderCreate($order: OrderCreateOrderInput!, $options: OrderCreateOptionsInput) {\n  orderCreate(order: $order, options: $options) {\n    userErrors {\n      field\n      message\n    }\n    order {\n      name\n      id\n      displayFinancialStatus\n      displayFulfillmentStatus\n      createdAt\n      processedAt\n    }\n  }\n}",
+												"variables": "{\n  \"order\": {\n    \"name\": \"M-{{$randomInt}}\",\n    \"sourceName\": \"machine\",\n    \"sourceIdentifier\": \"machine_id_0001\",\n    \"currency\": \"MYR\",\n    \"fulfillmentStatus\": \"FULFILLED\",\n    \"lineItems\": [\n      {\n        \"title\": \"Hawaiian Chicken Pepperoni (taglio)\",\n        \"sku\": \"HCPT890\",\n        \"variantId\": \"gid://shopify/ProductVariant/49450150232349\",\n        \"requiresShipping\": true,\n        \"quantity\": 1,\n        \"priceSet\": {\n          \"shopMoney\": {\n            \"amount\": 8.90,\n            \"currencyCode\": \"MYR\"\n          }\n        },\n        \"properties\": [\n          {\n            \"name\": \"Temperature\",\n            \"value\": \"Heat Up\"\n          }\n        ]\n      }\n    ],\n    \"tags\": [\n      \"tng\"\n    ],\n    \"taxesIncluded\": true,\n    \"taxLines\": [\n      {\n        \"priceSet\": {\n          \"shopMoney\": {\n            \"amount\": 0.89,\n            \"currencyCode\": \"MYR\"\n          }\n        },\n        \"rate\": \"0.01\",\n        \"title\": \"SST\"\n      }\n    ],\n    \"transactions\": [\n      {\n        \"kind\": \"SALE\",\n        \"status\": \"SUCCESS\",\n        \"gateway\": \"Tng\",\n        \"amountSet\": {\n          \"shopMoney\": {\n            \"amount\": 8.9,\n            \"currencyCode\": \"MYR\"\n          }\n        }\n      }\n    ],\n    \"shippingLines\": [\n      {\n        \"title\": \"Vending\",\n        \"priceSet\": {\n          \"shopMoney\": {\n            \"amount\": 0,\n            \"currencyCode\": \"MYR\"\n          }\n        }\n      }\n    ],\n    \"fulfillment\": {\n      \"locationId\": \"gid://shopify/Location/88633508125\"\n    }\n  },\n  \"options\": {\n    \"sendReceipt\": false,\n    \"sendFulfillmentReceipt\": false\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "https://{{shopify_store_name}}/admin/api/{{shopify_api_version}}/graphql.json",
+											"protocol": "https",
+											"host": [
+												"{{shopify_store_name}}"
+											],
+											"path": [
+												"admin",
+												"api",
+												"{{shopify_api_version}}",
+												"graphql.json"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 26 Mar 2025 04:47:49 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "x-sorting-hat-podid",
+											"value": "284"
+										},
+										{
+											"key": "x-sorting-hat-shopid",
+											"value": "79933767965"
+										},
+										{
+											"key": "vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "referrer-policy",
+											"value": "origin-when-cross-origin"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "DENY"
+										},
+										{
+											"key": "x-shopid",
+											"value": "79933767965"
+										},
+										{
+											"key": "x-shardid",
+											"value": "284"
+										},
+										{
+											"key": "x-stats-userid",
+											"value": ""
+										},
+										{
+											"key": "x-stats-apiclientid",
+											"value": "193939931137"
+										},
+										{
+											"key": "x-stats-apipermissionid",
+											"value": "806388138269"
+										},
+										{
+											"key": "x-shopify-api-version",
+											"value": "2025-01"
+										},
+										{
+											"key": "content-language",
+											"value": "en"
+										},
+										{
+											"key": "strict-transport-security",
+											"value": "max-age=7889238"
+										},
+										{
+											"key": "x-request-id",
+											"value": "e0e104e9-ffbe-4982-a86a-2dc49398f1fd-1742964468"
+										},
+										{
+											"key": "server-timing",
+											"value": "processing;dur=948, graphql;desc=\"admin/mutation/other\""
+										},
+										{
+											"key": "content-security-policy",
+											"value": "default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://* shopify-pos://*; block-all-mixed-content; child-src 'self' https://* shopify-pos://*; connect-src 'self' wss://* https://*; frame-ancestors 'none'; img-src 'self' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopifycdn.net https://checkout.pci.shopifyinc.com https://checkout.pci.shopifyinc.com/build/75a428d/card_fields.js https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com 'self' 'unsafe-inline' 'unsafe-eval'; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=query&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fgraphql&source%5Bsection%5D=admin_api&source%5Buuid%5D=e0e104e9-ffbe-4982-a86a-2dc49398f1fd-1742964468; report-to shopify-csp"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "x-download-options",
+											"value": "noopen"
+										},
+										{
+											"key": "x-permitted-cross-domain-policies",
+											"value": "none"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "reporting-endpoints",
+											"value": "shopify-csp=\"/csp-report?source%5Baction%5D=query&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fgraphql&source%5Bsection%5D=admin_api&source%5Buuid%5D=e0e104e9-ffbe-4982-a86a-2dc49398f1fd-1742964468\""
+										},
+										{
+											"key": "x-dc",
+											"value": "gcp-us-central1,gcp-us-central1,gcp-us-central1"
+										},
+										{
+											"key": "content-encoding",
+											"value": "gzip"
+										},
+										{
+											"key": "Alt-Svc",
+											"value": "h3=\":443\"; ma=86400"
+										},
+										{
+											"key": "cf-cache-status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=qZm7cKD2hnwMWmLZRB1429L3kxlyilNlw45BNlSEgX6gUrw6IViwAtCB4G5Av%2BG%2FcXvk0gYBJwe7PKnQISC9xlQ1%2FnuEa6Pj2Z84SoZFjYUVmex3Uph2ODdzXNHn9FBdShscRwaHB1zkV%2F8%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0.01,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server-Timing",
+											"value": "cfRequestDuration;dur=1234.999895"
+										},
+										{
+											"key": "Shopify-Edge-Ip",
+											"value": "23.227.38.74"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "926403157f31a8e3-SIN"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"orderCreate\": {\n            \"userErrors\": [],\n            \"order\": {\n                \"name\": \"M-204\",\n                \"id\": \"gid://shopify/Order/6621802463517\",\n                \"displayFinancialStatus\": \"PAID\",\n                \"displayFulfillmentStatus\": \"FULFILLED\",\n                \"createdAt\": \"2025-03-26T04:47:48Z\",\n                \"processedAt\": \"2025-03-26T04:47:48Z\"\n            }\n        }\n    },\n    \"extensions\": {\n        \"cost\": {\n            \"requestedQueryCost\": 10,\n            \"actualQueryCost\": 10,\n            \"throttleStatus\": {\n                \"maximumAvailable\": 2000,\n                \"currentlyAvailable\": 1990,\n                \"restoreRate\": 100\n            }\n        }\n    }\n}"
+								}
+							]
+						}
+					],
+					"description": "Refer to Shopify Official Documentation:\n\n- **Create**: [https://shopify.dev/docs/api/admin-graphql/latest/mutations/ordercreate](https://shopify.dev/docs/api/admin-graphql/2025-04/mutations/ordercreate)\n    \n- **Cancel**: [https://shopify.dev/docs/api/admin-graphql/latest/mutations/ordercancel](https://shopify.dev/docs/api/admin-graphql/latest/mutations/ordercancel)"
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "{{shopify_access_token}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "X-Shopify-Access-Token",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://api.perkd.io/prod",
+			"type": "string"
+		}
+	]
+}

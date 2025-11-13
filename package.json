@@ -1,0 +1,15 @@
+{
+  "name": "perkd-partner-docs",
+  "version": "1.0.0",
+  "description": "Perkd Partner API Documentation",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.0.0-rc.42",
+    "vue": "^3.4.15"
+  },
+  "type": "module"
+}
