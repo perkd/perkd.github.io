@@ -6,16 +6,17 @@ Official API documentation for Perkd Partner integrations.
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 18+
+- Yarn (install with `npm install -g yarn`)
 
 ### Installation
 
 ```bash
 # Install dependencies
-npm install
+yarn install
 
 # Start local dev server
-npm run docs:dev
+yarn docs:dev
 ```
 
 Visit `http://localhost:5173` to view the docs locally.
@@ -24,10 +25,10 @@ Visit `http://localhost:5173` to view the docs locally.
 
 ```bash
 # Build static site
-npm run docs:build
+yarn docs:build
 
 # Preview production build
-npm run docs:preview
+yarn docs:preview
 ```
 
 ## 📁 Project Structure
@@ -72,7 +73,7 @@ perkd.github.io/
 ### Running Locally
 
 ```bash
-npm run docs:dev
+yarn docs:dev
 ```
 
 The site will be available at `http://localhost:5173` with hot module replacement.
@@ -119,28 +120,34 @@ export default defineConfig({
 
 ## 🚢 Deployment
 
-### Automatic Deployment
+### Deploy to GitHub Pages
 
-Pushing to the `main` branch triggers automatic deployment to GitHub Pages via GitHub Actions.
-
-### Manual Deployment
+Simple one-command deployment:
 
 ```bash
-# Build the site
-npm run docs:build
-
-# Deploy to GitHub Pages manually
-# (or use the GitHub Actions workflow)
+yarn docs:deploy
 ```
 
-### Enabling GitHub Pages
+This will:
+1. Build the documentation
+2. Deploy to `gh-pages` branch
+3. Update the live site at `https://perkd.github.io`
+
+### First-Time Setup
+
+After your first deployment:
 
 1. Go to repository **Settings** → **Pages**
 2. **Source**: Deploy from a branch
-3. **Branch**: `gh-pages` (auto-created by workflow)
+3. **Branch**: `gh-pages`
 4. **Folder**: `/` (root)
+5. Click **Save**
 
-Site will be live at: `https://perkd.github.io`
+Your site will be live at: `https://perkd.github.io`
+
+### Deployment Time
+
+Deployment typically completes in ~30 seconds.
 
 ## 📝 Content Guidelines
 
